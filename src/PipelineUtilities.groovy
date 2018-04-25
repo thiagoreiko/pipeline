@@ -1,8 +1,9 @@
 package org.foo
-class Utilities implements Serializable {
+class PipelineUtilities implements Serializable {
   def steps
-  Utilities(steps) {this.steps = steps}
+  PipelineUtilities(steps) {this.steps = steps}
   def mvn(args) {
-    steps.echo "testando"
+    //steps.sh "${steps.tool 'Maven'}/bin/mvn -o ${args}"
+    steps.echo 'dkskdskjjsdsdjjsdkjdskkjdjdsjksdjdkjsda'
   }
 }
