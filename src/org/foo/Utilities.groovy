@@ -11,4 +11,9 @@ class Utilities implements Serializable {
   def go() {
 	  steps.echo 'GO'
   }
+  
+  static def test(script, args) {
+	script.echo 'Teste de método estático'
+  }
+  
 }
