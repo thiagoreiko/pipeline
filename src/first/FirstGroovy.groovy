@@ -8,4 +8,4 @@ def testEcho() {
 	echo 'funfando'
 }
 
-return this
+//return this
