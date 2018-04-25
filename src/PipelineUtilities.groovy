@@ -8,7 +8,7 @@ package org.foo
   }
 }
 */
-static class PipelineUtilities {
+class PipelineUtilities {
 	static def go(script, args) {
 		script.echo 'testing static method'
 	}
