@@ -8,7 +8,7 @@ package org.foo
   }
 }
 */
-class PipelineUtilities implements Serializable {
+class PipelineUtilities{
 	def go(script, args) {
 		script.echo 'testing static method'
 	}
