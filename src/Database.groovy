@@ -11,6 +11,6 @@ class Database implements Serializable {
   
   def validateScripts() {
     script.echo 'RUNNING VALIDATING SCRIPTS'
-    script.echo ${script.jsonDb}
+    script.echo "\"${script.jsonDb}"
   }
 }
