@@ -24,17 +24,17 @@ class PipelineUtilities {
     script.newEnvVarsNodeProperty = null
     script.envVars = null
 
-    if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
-      newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
-      globalNodeProperties.add(newEnvVarsNodeProperty)
-      envVars = newEnvVarsNodeProperty.getEnvVars()
+    if ( script.envVarsNodePropertyList == null || script.envVarsNodePropertyList.size() == 0 ) {
+      script.newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
+      script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
+      script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
     } else {
-      envVars = envVarsNodePropertyList.get(0).getEnvVars()
+      script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
     }
 
     //envVars.put(variableName + '_' + deployEnv, buildNumer)
-    envVars.put(key,value)
-    instance.save()
+    script.envVars.put(key,value)
+    script.instance.save()
   }
   // static def executeSonar(body, sourceCodePath, projectKey, projectName){
   //   def sqScannerMsBuildHome = body.tool 'SonarQube Scanner for MSBuild 3.0'
