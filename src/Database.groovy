@@ -13,6 +13,6 @@ class Database implements Serializable {
     script.echo 'RUNNING VALIDATING SCRIPTS'
     // script.echo "${jsonDb}"
 
-    script.echo "\${script.WORKSPACE}"
+    script.echo script.WORKSPACE
   }
 }
