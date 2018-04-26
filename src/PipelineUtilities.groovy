@@ -16,25 +16,25 @@ import hudson.model.*
 class PipelineUtilities {
 
 
-  static def saveGlobalVars(key, value) {
-    instance = Jenkins.getInstance()
-    globalNodeProperties = instance.getGlobalNodeProperties()
-    envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
+  static def saveGlobalVars(script, key, value) {
+    script.instance = Jenkins.getInstance()
+    // globalNodeProperties = instance.getGlobalNodeProperties()
+    // envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
 
-    newEnvVarsNodeProperty = null
-    envVars = null
+    // newEnvVarsNodeProperty = null
+    // envVars = null
 
-    if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
-      newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
-      globalNodeProperties.add(newEnvVarsNodeProperty)
-      envVars = newEnvVarsNodeProperty.getEnvVars()
-    } else {
-      envVars = envVarsNodePropertyList.get(0).getEnvVars()
-    }
+    // if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+    //   newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
+    //   globalNodeProperties.add(newEnvVarsNodeProperty)
+    //   envVars = newEnvVarsNodeProperty.getEnvVars()
+    // } else {
+    //   envVars = envVarsNodePropertyList.get(0).getEnvVars()
+    // }
 
-    //envVars.put(variableName + '_' + deployEnv, buildNumer)
-    envVars.put(key,value)
-    instance.save()
+    // //envVars.put(variableName + '_' + deployEnv, buildNumer)
+    // envVars.put(key,value)
+    // instance.save()
   }
   // static def executeSonar(body, sourceCodePath, projectKey, projectName){
   //   def sqScannerMsBuildHome = body.tool 'SonarQube Scanner for MSBuild 3.0'
