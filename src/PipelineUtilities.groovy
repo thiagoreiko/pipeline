@@ -15,7 +15,6 @@ import hudson.model.*
 
 class PipelineUtilities {
 
-
   static def saveGlobalVars(script, key, value) {
     script.instance = Jenkins.getInstance()
     script.globalNodeProperties = script.instance.getGlobalNodeProperties()
@@ -32,7 +31,6 @@ class PipelineUtilities {
       script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
     }
 
-    //envVars.put(variableName + '_' + deployEnv, buildNumer)
     script.envVars.put(key,value)
     script.instance.save()
   }
