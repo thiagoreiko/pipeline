@@ -43,7 +43,7 @@ class Database implements Serializable {
   def executeScripts(credentialId_update, credentialId_dbDoc){
       def appliers = [:]
 
-      for (db in localVars.Databases) {
+      for (db in jsonDb.Databases) {
         for (sc in db.Schemas) {
             if(sc.Aplicar) {
                 appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
