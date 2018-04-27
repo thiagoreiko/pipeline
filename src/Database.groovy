@@ -2,7 +2,7 @@ package org.foo
 
 class Database {
   
-    static def testParallel(script, jsonDb){
+    /*static def testParallel(script, jsonDb){
         def appliersTest = [:]
 
         (1..5).each {
@@ -16,5 +16,21 @@ class Database {
         }
 
         script.parallel appliersTest  
+    }*/
+
+    static def testParallel(script, jsonDb){
+        def appliersTest = [:]
+
+        (1..5).each {
+            appliersTest["${it}"] = {
+                node {
+                    stage("Executando ${it}") {                            
+                        echo "teste ${it}"
+                    }
+                }
+            }
+        }
+
+        return appliersTest  
     }
 }
