@@ -1,7 +1,7 @@
 package org.foo
 
 class Database {
-    @NonCPS
+  
     static def testParallel(script, jsonDb){
         def appliersTest = [:]
 
@@ -15,6 +15,6 @@ class Database {
             }
         }
 
-        //script.parallel appliersTest  
+        script.parallel appliersTest  
     }
 }
