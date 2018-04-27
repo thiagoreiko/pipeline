@@ -22,7 +22,7 @@ class Database implements Serializable {
       else { this.scriptsFolderPath = "${script.WORKSPACE}\\DB\\" }
     }
   
-  def validateScripts(credentialsId) {
+  /*def validateScripts(credentialsId) {
     script.echo 'RUNNING VALIDATING SCRIPTS'   
     
     for (db in jsonDb.Databases) {
@@ -79,7 +79,7 @@ class Database implements Serializable {
     
     //executa scripts paralelamente
     parallel appliers
-  }
+  }*/
   
   @NonCPS
   def testParallel() {
