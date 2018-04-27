@@ -21,12 +21,18 @@ class Database {
     static def testParallel(script, jsonDb){
         def appliersTest = [:]
 
-        (1..5).each {
-            appliersTest["${it}"] = {
-                node {
-                    stage("Executando ${it}") {                            
-                        echo "teste ${it}"
-                    }
+        appliersTest["0"] = {
+            node {
+                stage("Executando 0") {                            
+                    echo "teste 0"
+                }
+            }
+        }
+
+        appliersTest["1"] = {
+            node {
+                stage("Executando 1") {                            
+                    echo "teste 1"
                 }
             }
         }
