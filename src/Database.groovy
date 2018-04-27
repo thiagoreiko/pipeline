@@ -50,23 +50,23 @@ class Database implements Serializable {
                     node {
                         stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
                             //executa script
-                            script.liquibaseUpdate 
-                                changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                                classpath: "${classpath}", 
-                                credentialsId: "${credentialId_update}", 
-                                driverClassname: "${driverClassname}", 
-                                tagOnSuccessfulBuild: true, 
-                                testRollbacks: true, 
-                                url: "${db.ConnectionString}"
+                            // script.liquibaseUpdate 
+                            //     changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            //     classpath: "${classpath}", 
+                            //     credentialsId: "${credentialId_update}", 
+                            //     driverClassname: "${driverClassname}", 
+                            //     tagOnSuccessfulBuild: true, 
+                            //     testRollbacks: true, 
+                            //     url: "${db.ConnectionString}"
                             
                             //grava dblog
-                            script.liquibaseDbDoc 
-                                changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                                classpath: "${classpath}", 
-                                credentialsId: "${credentialId_dbDoc}", 
-                                driverClassname: "${driverClassname}", 
-                                outputDirectory: ".\\dbDoc\\${db.Name}\\${sc.Schema}", 
-                                url: "${db.ConnectionString}"
+                            // script.liquibaseDbDoc 
+                            //     changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            //     classpath: "${classpath}", 
+                            //     credentialsId: "${credentialId_dbDoc}", 
+                            //     driverClassname: "${driverClassname}", 
+                            //     outputDirectory: ".\\dbDoc\\${db.Name}\\${sc.Schema}", 
+                            //     url: "${db.ConnectionString}"
                         }
                     }
                 }
