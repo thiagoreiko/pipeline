@@ -79,7 +79,7 @@ class Database implements Serializable {
   }
 
   def testParallel() {
-    def appliers = [:]
+    /*def appliers = [:]
 
     (1..5).each {
           appliers["${it}"] = {
@@ -91,6 +91,7 @@ class Database implements Serializable {
         }
     }
 
-    script.parallel appliers
+    script.parallel appliers*/
+    script.echo 'AAAA'
   }
 }
