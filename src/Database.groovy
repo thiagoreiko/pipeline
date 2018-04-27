@@ -20,6 +20,8 @@ class Database {
 
     @NonCPS
     static def testParallel(script, jsonDb){
+
+        script.echo "${jsonDb}"
         def appliersTest = [:]
 
         appliersTest["0"] = {
