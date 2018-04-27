@@ -1,5 +1,5 @@
 package org.foo
-
+import com.cloudbees.groovy.cps.NonCPS
 class Database implements Serializable {
   def script
   def jsonDb
