@@ -12,7 +12,7 @@ class Database implements Serializable {
 
   Database(script, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null) {
       this.script = script
-      this.jsonDb = jsonDb
+      this.jsonDb = new JsonSlurper().parseText(jsonDb)
 
       if(classpath != null) { this.classpath = classpath }
       
