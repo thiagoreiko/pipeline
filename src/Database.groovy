@@ -85,7 +85,7 @@ class Database implements Serializable {
           appliers["${it}"] = {
             node {
                 stage("Executando ${it}") {                            
-                    script.echo "${it}"
+                    //script.echo "${it}"
                 }
             }
         }
