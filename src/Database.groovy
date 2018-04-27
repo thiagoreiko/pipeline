@@ -91,6 +91,6 @@ class Database implements Serializable {
         }
     }
 
-    //script.parallel appliers    
+    script.parallel appliers    
   }
 }
