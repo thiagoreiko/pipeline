@@ -1,6 +1,6 @@
 package org.foo
 
-class Database implements Serializable {
+class Database /*implements Serializable*/ {
   def script
   def jsonDb
   def scriptsFolderPath
