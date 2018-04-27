@@ -12,9 +12,7 @@ class Database implements Serializable {
 
   Database(script, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null) {
       this.script = script
-      this.jsonDb = new JsonSlurper().parseText(jsonDb)
-
-      script.echo "${this.jsonDb}"
+      this.jsonDb = jsonDb
 
       if(classpath != null) { this.classpath = classpath }
       
@@ -24,7 +22,7 @@ class Database implements Serializable {
       else { this.scriptsFolderPath = "${script.WORKSPACE}\\DB\\" }
     }
   
-  /*def validateScripts(credentialsId) {
+  def validateScripts(credentialsId) {
     script.echo 'RUNNING VALIDATING SCRIPTS'   
     
     for (db in jsonDb.Databases) {
@@ -81,22 +79,5 @@ class Database implements Serializable {
     
     //executa scripts paralelamente
     parallel appliers
-  }*/
-  
-  @NonCPS
-  def testParallel() {
-    def appliersTest = [:]
-
-    (1..5).each {
-        appliersTest["${it}"] = {
-            node {
-                stage("Executando ${it}") {                            
-                    script.echo "${it}"
-                }
-            }
-        }
-    }
-
-    script.parallel appliersTest    
   }
 }
