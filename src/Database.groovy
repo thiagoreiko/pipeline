@@ -14,6 +14,8 @@ class Database implements Serializable {
       this.script = script
       this.jsonDb = new JsonSlurper().parseText(jsonDb)
 
+      script.echo "${this.jsonDb}"
+
       if(classpath != null) { this.classpath = classpath }
       
       if(driverClassname != null) { this.driverClassname = driverClassname }
