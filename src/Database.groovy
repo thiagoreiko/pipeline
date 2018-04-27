@@ -1,5 +1,8 @@
 package org.foo
+
+import groovy.json.JsonSlurper
 import com.cloudbees.groovy.cps.NonCPS
+
 class Database implements Serializable {
   def script
   def jsonDb
@@ -22,7 +25,7 @@ class Database implements Serializable {
   def validateScripts(credentialsId) {
     script.echo 'RUNNING VALIDATING SCRIPTS'   
     
-    /*for (db in jsonDb.Databases) {
+    for (db in jsonDb.Databases) {
         for (sc in db.Schemas) {
             if(sc.Aplicar) {
                 script.sqlScriptValidator([
@@ -37,13 +40,13 @@ class Database implements Serializable {
                 ])                
             }
         }
-    }*/
+    }
   }
 
   def executeScripts(credentialId_update, credentialId_dbDoc){
       def appliers = [:]
 
-      /*for (db in jsonDb.Databases) {
+      for (db in jsonDb.Databases) {
         for (sc in db.Schemas) {
             if(sc.Aplicar) {
                 appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
@@ -75,15 +78,15 @@ class Database implements Serializable {
     }
     
     //executa scripts paralelamente
-    parallel appliers*/
+    parallel appliers
   }
   
   @NonCPS
   def testParallel() {
-    def appliers = [:]
+    def appliersTest = [:]
 
     (1..5).each {
-        appliers["${it}"] = {
+        appliersTest["${it}"] = {
             node {
                 stage("Executando ${it}") {                            
                     script.echo "${it}"
@@ -92,6 +95,6 @@ class Database implements Serializable {
         }
     }
 
-    script.parallel appliers    
+    script.parallel appliersTest    
   }
 }
