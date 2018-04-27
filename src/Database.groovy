@@ -18,6 +18,7 @@ class Database {
         script.parallel appliersTest  
     }*/
 
+    @NonCPS
     static def testParallel(script, jsonDb){
         def appliersTest = [:]
 
