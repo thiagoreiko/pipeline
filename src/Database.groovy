@@ -9,12 +9,12 @@ class Database {
             appliersTest["${it}"] = {
                 script.node {
                     script.stage("Executando ${it}") {                            
-                        script.echo "${it}"
+                        script.echo "teste ${it}"
                     }
                 }
             }
         }
 
-        script.parallel appliersTest  
+        //script.parallel appliersTest  
     }
 }
