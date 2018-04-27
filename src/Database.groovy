@@ -1,6 +1,6 @@
 package org.foo
 
-class Database /*implements Serializable*/ {
+class Database implements Serializable {
   def script
   def jsonDb
   def scriptsFolderPath
@@ -77,7 +77,8 @@ class Database /*implements Serializable*/ {
     //executa scripts paralelamente
     parallel appliers*/
   }
-
+  
+  @NonCPS
   def testParallel() {
     def appliers = [:]
 
