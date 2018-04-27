@@ -22,7 +22,7 @@ class Database implements Serializable {
   def validateScripts(credentialsId) {
     script.echo 'RUNNING VALIDATING SCRIPTS'   
     
-    for (db in jsonDb.Databases) {
+    /*for (db in jsonDb.Databases) {
         for (sc in db.Schemas) {
             if(sc.Aplicar) {
                 script.sqlScriptValidator([
@@ -37,36 +37,36 @@ class Database implements Serializable {
                 ])                
             }
         }
-    }
+    }*/
   }
 
   def executeScripts(credentialId_update, credentialId_dbDoc){
       def appliers = [:]
 
-      for (db in jsonDb.Databases) {
+      /*for (db in jsonDb.Databases) {
         for (sc in db.Schemas) {
             if(sc.Aplicar) {
                 appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
                     node {
                         stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
                             //executa script
-                            // script.liquibaseUpdate 
-                            //     changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                            //     classpath: "${classpath}", 
-                            //     credentialsId: "${credentialId_update}", 
-                            //     driverClassname: "${driverClassname}", 
-                            //     tagOnSuccessfulBuild: true, 
-                            //     testRollbacks: true, 
-                            //     url: "${db.ConnectionString}"
+                             script.liquibaseupdate 
+                                 changelogfile: "${scriptsfolderpath}\\${sc.changelogpath}", 
+                                 classpath: "${classpath}", 
+                                 credentialsid: "${credentialid_update}", 
+                                 driverclassname: "${driverclassname}", 
+                                 tagonsuccessfulbuild: true, 
+                                 testrollbacks: true, 
+                                 url: "${db.connectionstring}"
                             
                             //grava dblog
-                            // script.liquibaseDbDoc 
-                            //     changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                            //     classpath: "${classpath}", 
-                            //     credentialsId: "${credentialId_dbDoc}", 
-                            //     driverClassname: "${driverClassname}", 
-                            //     outputDirectory: ".\\dbDoc\\${db.Name}\\${sc.Schema}", 
-                            //     url: "${db.ConnectionString}"
+                             script.liquibasedbdoc 
+                                 changelogfile: "${scriptsfolderpath}\\${sc.changelogpath}", 
+                                 classpath: "${classpath}", 
+                                 credentialsid: "${credentialid_dbdoc}", 
+                                 driverclassname: "${driverclassname}", 
+                                 outputdirectory: ".\\dbdoc\\${db.name}\\${sc.schema}", 
+                                 url: "${db.connectionstring}"
                         }
                     }
                 }
@@ -75,7 +75,7 @@ class Database implements Serializable {
     }
     
     //executa scripts paralelamente
-    parallel appliers
+    parallel appliers*/
   }
 
   def testParallel() {
@@ -85,7 +85,7 @@ class Database implements Serializable {
           appliers["${it}"] = {
             node {
                 stage("Executando ${it}") {                            
-                    //script.echo "${it}"
+                    script.echo "${it}"
                 }
             }
         }
