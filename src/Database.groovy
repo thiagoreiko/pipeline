@@ -50,11 +50,11 @@ class Database implements Serializable {
 
     def test = { val -> script.echo "${val}"}
 
-    def executeScripts() {
+    def executeScripts(dtBase) {
         script.echo "Executing scripts"
         def appliers = [:] 
 
-        def json = new JsonSlurper().parseText(jsonDb)
+        def json = new JsonSlurper().parseText(dtBase)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
