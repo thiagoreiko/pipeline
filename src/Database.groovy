@@ -11,7 +11,7 @@ class Database implements Serializable {
 
     Database(script, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.script = script
-        this.jsonDb = jsonDb//new JsonSlurper().parseText(jsonDb)
+        this.jsonDb = jsonDb //new JsonSlurper().parseText(jsonDb)
 
       if(classpath != null) { this.classpath = classpath }
       
@@ -19,66 +19,7 @@ class Database implements Serializable {
 
       if(scriptsFolderPath != null) { this.scriptsFolderPath = scriptsFolderPath }
       else { this.scriptsFolderPath = "${script.WORKSPACE}\\DB\\" }  
-    }
-
-    def validateScripts(credentialsId) {
-        script.echo 'RUNNING VALIDATING SCRIPTS'   
-        def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
-            for (sc in db.Schemas) {
-                if(sc.Aplicar) {
-                    script.sqlScriptValidator([
-                        changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                        url : "${db.ConnectionString}", 
-                        classpath : "${classpath}", 
-                        driverClassname : "${driverClassname}", 
-                        credentialsId : "${credentialsId}", 
-                        sqlCommands : "drop,truncate", 
-                        validateRollbackScript : false, 
-                        buildFailedWhenInvalid : false
-                    ])                
-                }
-            }
-        }
-    }
-
-    def executeScripts(credentialId_update, credentialId_update){
-      def appliers = [:]      
-      
-      def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
-        for (sc in db.Schemas) {
-            if(sc.Aplicar) {
-                appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
-                    script.node {
-                        script.stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
-                            //executa script
-                            script.liquibaseupdate 
-                                changelogfile: "${scriptsfolderpath}\\${sc.changelogpath}", 
-                                classpath: "${classpath}", 
-                                credentialsid: "${credentialid_update}", 
-                                driverclassname: "${driverclassname}", 
-                                tagonsuccessfulbuild: true, 
-                                testrollbacks: true, 
-                                url: "${db.connectionstring}"
-                            
-                            //grava dblog
-                            script.liquibasedbdoc 
-                                changelogfile: "${scriptsfolderpath}\\${sc.changelogpath}", 
-                                classpath: "${classpath}", 
-                                credentialsid: "${credentialid_dbdoc}", 
-                                driverclassname: "${driverclassname}", 
-                                outputdirectory: ".\\dbdoc\\${db.name}\\${sc.schema}", 
-                                url: "${db.connectionstring}"
-                        }
-                    }
-                }
-            }
-        }
-      }
-    
-      return appliers
-    }
+    }    
 
     def testVariables() {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
