@@ -46,11 +46,14 @@ class Database implements Serializable {
     @NonCPS
     def test(index){
         return {
-            script.node {
-                script.stage("Executando ${index}") {                            
-                    script.echo "teste ${index}"
+            //script.node {
+                script.stage("Executando ${index}") {
+                    script.agent any
+                    script.steps {
+                        script.echo "teste ${index}"
+                    }
                 }
-            }
+            //}
         }
     }
 
