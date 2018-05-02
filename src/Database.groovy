@@ -1,28 +1,41 @@
 package org.foo
 
-class Database {
+class Database implements Serializable {
 
-    static def testParallel(script, jsonDb){
+    def script
+    def scriptsFolderPath
+    def classpath = "D:\\liquibase-bin\\ojdbc6.jar"
+    def driverClassname = "oracle.jdbc.OracleDriver"
 
-        script.echo "${jsonDb}"
-        def appliersTest = [:]
+    Database(script, scriptsFolderPath = null, classpath = null, driverClassname = null){
+        this.script = script
 
-        appliersTest["0"] = {
-            script.node {
-                script.stage("Executando 0") {                            
-                    script.echo "teste 0"
-                }
-            }
-        }
+      if(classpath != null) { this.classpath = classpath }
+      
+      if(driverClassname != null) { this.driverClassname = driverClassname }
 
-        appliersTest["1"] = {
-            script.node {
-                script.stage("Executando 1") {                            
-                    script.echo "teste 1"
-                }
-            }
-        }
-
-        return appliersTest  
+      if(scriptsFolderPath != null) { this.scriptsFolderPath = scriptsFolderPath }
+      else { this.scriptsFolderPath = "${script.WORKSPACE}\\DB\\" }  
     }
+
+    def validateScripts(jsonDb, credentialsId) {
+        script.echo 'RUNNING VALIDATING SCRIPTS'   
+    
+        // for (db in jsonDb.Databases) {
+        //     for (sc in db.Schemas) {
+        //         if(sc.Aplicar) {
+        //             script.sqlScriptValidator([
+        //                 changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+        //                 url : "${db.ConnectionString}", 
+        //                 classpath : "${classpath}", 
+        //                 driverClassname : "${driverClassname}", 
+        //                 credentialsId : "${credentialsId}", 
+        //                 sqlCommands : "drop,truncate", 
+        //                 validateRollbackScript : false, 
+        //                 buildFailedWhenInvalid : false
+        //             ])                
+        //         }
+        //     }
+        // }
+  }
 }
