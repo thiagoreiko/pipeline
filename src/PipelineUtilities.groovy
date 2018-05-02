@@ -27,7 +27,7 @@ class PipelineUtilities {
  
   static def removeReadOnly(script, workspace = null) {
     if (workspace == null){
-      workspace = ${script.WORKSPACE}      
+      workspace = script.WORKSPACE    
     }
     
     script.bat "\"${script.RemoveReadOnly}\" \"${workspace}\""
