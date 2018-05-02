@@ -25,21 +25,21 @@ class Database implements Serializable {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
 
         def json = new JsonSlurper().parseText(jsonDb)
-        // for (db in jsonDb.Databases) {
-        //     for (sc in db.Schemas) {
-        //         if(sc.Aplicar) {
-        //             script.sqlScriptValidator([
-        //                 changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-        //                 url : "${db.ConnectionString}", 
-        //                 classpath : "${classpath}", 
-        //                 driverClassname : "${driverClassname}", 
-        //                 credentialsId : "${credentialsId}", 
-        //                 sqlCommands : "drop,truncate", 
-        //                 validateRollbackScript : false, 
-        //                 buildFailedWhenInvalid : false
-        //             ])                
-        //         }
-        //     }
-        // }
+        for (db in jsonDb.Databases) {
+             for (sc in db.Schemas) {
+                 if(sc.Aplicar) {
+                     script.sqlScriptValidator([
+                        changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                        url : "${db.ConnectionString}", 
+                        classpath : "${classpath}", 
+                        driverClassname : "${driverClassname}", 
+                        credentialsId : "${credentialsId}", 
+                        sqlCommands : "drop,truncate", 
+                        validateRollbackScript : false, 
+                        buildFailedWhenInvalid : false
+                    ])                
+                }
+            }
+        }
   }
 }
