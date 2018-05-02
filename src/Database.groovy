@@ -25,10 +25,10 @@ class Database implements Serializable {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
 
         def json = new JsonSlurper().parseText(jsonDb)
-        for (db in jsonDb.Databases) {
-             for (sc in db.Schemas) {
-                 if(sc.Aplicar) {
-                     script.sqlScriptValidator([
+        for (db in json.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    script.sqlScriptValidator([
                         changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                         url : "${db.ConnectionString}", 
                         classpath : "${classpath}", 
@@ -41,5 +41,43 @@ class Database implements Serializable {
                 }
             }
         }
+    }
+
+    def executeScripts(credentialId_update, credentialId_update){
+      def appliers = [:]
+      def json = new JsonSlurper().parseText(jsonDb)
+      
+      for (db in json.Databases) {
+        for (sc in db.Schemas) {
+            if(sc.Aplicar) {
+                appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
+                    script.node {
+                        script.stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
+                            //executa script
+                            script.liquibaseupdate 
+                                changelogfile: "${scriptsfolderpath}\\${sc.changelogpath}", 
+                                classpath: "${classpath}", 
+                                credentialsid: "${credentialid_update}", 
+                                driverclassname: "${driverclassname}", 
+                                tagonsuccessfulbuild: true, 
+                                testrollbacks: true, 
+                                url: "${db.connectionstring}"
+                            
+                            //grava dblog
+                            script.liquibasedbdoc 
+                                changelogfile: "${scriptsfolderpath}\\${sc.changelogpath}", 
+                                classpath: "${classpath}", 
+                                credentialsid: "${credentialid_dbdoc}", 
+                                driverclassname: "${driverclassname}", 
+                                outputdirectory: ".\\dbdoc\\${db.name}\\${sc.schema}", 
+                                url: "${db.connectionstring}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return appliers
   }
 }
