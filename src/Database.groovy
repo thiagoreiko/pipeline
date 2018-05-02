@@ -58,19 +58,12 @@ class Database implements Serializable {
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
-                   def name = db.Name
-            /*         def schema = ${sc.Schema}
-                    def buildNumber = ${script.Name}
-                    //appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${script.BUILD_NUMBER}"] = {
-                    //    script.node {
-                    //        script.stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
-                    //            script.echo 'a'
-                    //        }
-                    //    }
-                    //}
-                    // appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
-                    //     script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
-                    // }*/
+                    def name = db.Name
+                    def schema = sc.Schema
+                    def buildNumber = script.Name
+                     appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
+                         script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
+                     }
                 }
             }
         } 
