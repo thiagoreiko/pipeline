@@ -45,7 +45,7 @@ class Database implements Serializable {
     
     
     def test(index){
-        return {index: {script.echo "teste ${index}"}}        
+        return {script.echo "teste ${index}"}        
     }
 
     def executeScripts() {
