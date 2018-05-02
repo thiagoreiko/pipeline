@@ -48,7 +48,7 @@ class Database implements Serializable {
         return {
             //script.node {
                 script.stage("Executando ${index}") {
-                    script.agent any
+                    //script.agent any
                     script.steps {
                         script.echo "teste ${index}"
                     }
