@@ -79,7 +79,7 @@ class Database implements Serializable {
     return appliers
   }
 
-    def testVariables(credentialsId) {
+    def testVariables() {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
 
         for (db in jsonDb.Databases) {
