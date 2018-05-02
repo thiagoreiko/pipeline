@@ -68,9 +68,9 @@ class Database implements Serializable {
                     //        }
                     //    }
                     //}
-                    appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
-                        script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
-                    }
+                    // appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
+                    //     script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
+                    // }
                 }
             }
         } 
