@@ -59,6 +59,8 @@ class Database implements Serializable {
                 }
             }
         } 
+
+        return arr
     }
 
     def test = { val -> body.echo "${val}"}
@@ -67,7 +69,7 @@ class Database implements Serializable {
         body.echo "Executing scripts"
         def appliers = [:] 
         appliers = fnc()
-        
+
         // def json = new JsonSlurper().parseText(jsonDb)
         // for (db in json.Databases) {
         //     for (sc in db.Schemas) {
