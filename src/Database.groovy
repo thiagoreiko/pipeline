@@ -44,6 +44,14 @@ class Database implements Serializable {
     }
     
     @NonCPS
+    def test(index){
+        return script.node {
+            script.stage("Executando ${index}") {                            
+                script.echo "teste ${index}"
+            }
+        }
+    }
+
     def executeScripts() {
         script.echo "Executing scripts"
         def appliers = [:] 
@@ -60,21 +68,8 @@ class Database implements Serializable {
                     //    }
                     //}
 
-                    appliers["0"] = {
-                        script.node {
-                            script.stage("Executando 0") {                            
-                                script.echo "teste 0"
-                            }
-                        }
-                    }
-
-                    appliers["1"] = {
-                        script.node {
-                            script.stage("Executando 1") {                            
-                                script.echo "teste 1"
-                            }
-                        }
-                    }
+                    appliers["0"] = test("0")
+                    appliers["1"] = test("1")
                 }
             }
         } 
