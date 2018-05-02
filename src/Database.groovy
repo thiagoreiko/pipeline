@@ -55,7 +55,7 @@ class Database implements Serializable {
         def appliers = [:] 
 
         def json = new JsonSlurper().parseText(dtBase)
-        for (db in json.Databases) {
+        /*for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     def name = ${db.Name}
@@ -73,7 +73,7 @@ class Database implements Serializable {
                     // }
                 }
             }
-        } 
+        } */
         // for (int i = 0; i < 4; i++) { 
         //     def index = i
         //     appliers[index] = { test(index) }          
