@@ -1,14 +1,4 @@
 package org.foo
-/*class PipelineUtilities implements Serializable {
-  def steps
-  PipelineUtilities(steps) {this.steps = steps}
-  def mvn(args) {
-    //steps.sh "${steps.tool 'Maven'}/bin/mvn -o ${args}"
-    steps.echo 'dkskdskjjsdsdjjsdkjdskkjdjdsjksdjdkjsda'
-  }
-}
-*/
-
 import hudson.slaves.EnvironmentVariablesNodeProperty
 import jenkins.model.Jenkins
 import hudson.model.*
@@ -39,6 +29,6 @@ class PipelineUtilities {
     if (workspace == null){
       workspace = script.WORKSPACE
     }
-    script.bat '"${script.RemoveReadOnly}" "${workspace}"'
+    script.bat '\"${script.RemoveReadOnly}\" \"${workspace}\"'
   }
 }
