@@ -47,16 +47,14 @@ class Database implements Serializable {
         def appliers = [:] 
 
         for(db in jsonDb.Databases) {
-            for (db in json.Databases) {
-                for (sc in db.Schemas) {
-                    if(sc.Aplicar) {
-                        appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
-                        
-                        }
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
+                    
                     }
                 }
             }
-        }
+        }        
     }
 
     def testVariables() {
