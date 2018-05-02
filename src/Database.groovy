@@ -1,4 +1,5 @@
 package org.foo
+import groovy.json.JsonSlurper
 
 class Database implements Serializable {
 
@@ -23,7 +24,7 @@ class Database implements Serializable {
     def validateScripts(credentialsId) {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
 
-        script.echo "${jsonDb}"
+        def json = new JsonSlurper().parseText(jsonDb)
         // for (db in jsonDb.Databases) {
         //     for (sc in db.Schemas) {
         //         if(sc.Aplicar) {
