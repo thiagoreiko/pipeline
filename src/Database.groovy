@@ -3,6 +3,7 @@ package org.foo
 class Database implements Serializable {
 
     def script
+    def jsonDb
     def scriptsFolderPath
     def classpath = "D:\\liquibase-bin\\ojdbc6.jar"
     def driverClassname = "oracle.jdbc.OracleDriver"
