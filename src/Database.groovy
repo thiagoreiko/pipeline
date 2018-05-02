@@ -50,7 +50,11 @@ class Database implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
-                    
+                        script.node {
+                            script.stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
+                                script.echo 'a'
+                            }
+                        }
                     }
                 }
             }
