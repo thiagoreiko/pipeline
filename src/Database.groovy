@@ -54,7 +54,7 @@ class Database implements Serializable {
         script.echo "Executing scripts"
         def appliers = [:] 
 
-        def json = new JsonSlurper().parseText()
+        def json = new JsonSlurper().parseText(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
