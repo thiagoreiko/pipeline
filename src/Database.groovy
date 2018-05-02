@@ -49,7 +49,7 @@ class Database implements Serializable {
         for(db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
-                    appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
+                    appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${script.BUILD_NUMBER}"] = {
                         script.node {
                             script.stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
                                 script.echo 'a'
