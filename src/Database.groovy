@@ -42,7 +42,8 @@ class Database implements Serializable {
             }
         }
     }
-
+    
+    @NonCPS
     def executeScripts() {
         script.echo "Executing scripts"
         def appliers = [:] 
