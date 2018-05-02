@@ -58,7 +58,9 @@ class Database implements Serializable {
                     }
                 }
             }
-        }        
+        } 
+
+        return appliers       
     }
 
     def testVariables() {
