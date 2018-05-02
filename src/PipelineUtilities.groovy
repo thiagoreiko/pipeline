@@ -29,9 +29,8 @@ class PipelineUtilities {
     if (workspace == null){
       workspace = script.WORKSPACE      
     }
-
-    script.echo "${script.RemoveReadOnly}"
     
+    script.echo "${workspace}"
     script.bat "${script.RemoveReadOnly}" "${workspace}"
   }
 }
