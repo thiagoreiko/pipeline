@@ -11,7 +11,7 @@ class Database implements Serializable {
 
     Database(script, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.script = script
-        this.jsonDb = jsonDb//new JsonSlurper().parseText(jsonDb)
+        this.jsonDb = new JsonSlurper().parseText(jsonDb)
 
       if(classpath != null) { this.classpath = classpath }
       
@@ -24,8 +24,7 @@ class Database implements Serializable {
     def validateScripts() {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
         
-        def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
+        for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     script.sqlScriptValidator([
@@ -58,8 +57,7 @@ class Database implements Serializable {
         script.echo "Executing scripts"
         def appliers = [:] 
 
-        def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
+        for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     //appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${script.BUILD_NUMBER}"] = {
@@ -82,8 +80,7 @@ class Database implements Serializable {
     def testVariables() {
         script.echo 'Testing'   
         
-        def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
+        for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     script.echo "${sc.Credenciais}"
