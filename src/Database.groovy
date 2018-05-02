@@ -11,14 +11,14 @@ class Database implements Serializable {
 
     Database(body, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.body = body
-        this.jsonDb = jsonDb//new JsonSlurper().parseText(jsonDb)
+        this.jsonDb = jsonDb
 
       if(classpath != null) { this.classpath = classpath }
       
       if(driverClassname != null) { this.driverClassname = driverClassname }
 
       if(scriptsFolderPath != null) { this.scriptsFolderPath = scriptsFolderPath }
-      else { this.scriptsFolderPath = 'a'}//"${body.WORKSPACE}\\DB\\" }  
+      else { this.scriptsFolderPath = "${body.WORKSPACE}\\DB\\" }  
     }    
 
     def validateScripts() {
