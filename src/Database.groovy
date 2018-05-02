@@ -57,8 +57,8 @@ class Database implements Serializable {
         def json = new JsonSlurper().parseText(dtBase)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
-            /*    if(sc.Aplicar) {
-                    def name = ${db.Name}
+                if(sc.Aplicar) {
+            /*        def name = ${db.Name}
                     def schema = ${sc.Schema}
                     def buildNumber = ${script.Name}
                     //appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${script.BUILD_NUMBER}"] = {
@@ -70,8 +70,8 @@ class Database implements Serializable {
                     //}
                     // appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
                     //     script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
-                    // }
-                }*/
+                    // }*/
+                }
             }
         } 
         // for (int i = 0; i < 4; i++) { 
