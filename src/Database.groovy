@@ -54,10 +54,13 @@ class Database implements Serializable {
         script.echo "Executing scripts"
         def appliers = [:] 
 
-        /*def json = new JsonSlurper().parseText(jsonDb)
+        def json = new JsonSlurper().parseText(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
+                    def name = ${db.Name}
+                    def schema = ${sc.Schema}
+                    def buildNumber = ${script.Name}
                     //appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${script.BUILD_NUMBER}"] = {
                     //    script.node {
                     //        script.stage("Executando scripts DB ${db.Name} SCHEMA ${sc.Schema}") {
@@ -65,16 +68,16 @@ class Database implements Serializable {
                     //        }
                     //    }
                     //}
-
-                    appliers["0"] = {script.echo "teste 0"}
-                    appliers["1"] = {script.echo "teste 1"}
+                    appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
+                        script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
+                    }
                 }
             }
-        } */
-        for (int i = 0; i < 4; i++) { 
-            def index = i
-            appliers[index] = { test(index) }          
-        }
+        } 
+        // for (int i = 0; i < 4; i++) { 
+        //     def index = i
+        //     appliers[index] = { test(index) }          
+        // }
 
         return appliers       
     }
