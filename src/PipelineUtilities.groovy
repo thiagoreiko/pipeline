@@ -30,7 +30,7 @@ class PipelineUtilities {
       workspace = script.WORKSPACE      
     }
     
-    script.echo "${workspace}"
+    //script.echo "${workspace}"
     script.bat "${script.RemoveReadOnly}" "${workspace}"
   }
 }
