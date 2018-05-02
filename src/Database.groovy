@@ -62,7 +62,7 @@ class Database implements Serializable {
                     def schema = sc.Schema
                     def buildNumber = script.BUILD_NUMBER
                      appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
-                         script.echo "Executando scripts DB ${name} SCHEMA ${schema}"                          
+                         script.echo "Executando scripts DB "                          
                      }
                 }
             }
