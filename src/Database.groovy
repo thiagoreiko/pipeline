@@ -52,7 +52,7 @@ class Database implements Serializable {
         script.echo "Executing scripts"
         def appliers = [:] 
 
-        def json = new JsonSlurper().parseText(jsonDb)
+        /*def json = new JsonSlurper().parseText(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
@@ -68,7 +68,9 @@ class Database implements Serializable {
                     appliers["1"] = {script.echo "teste 1"}
                 }
             }
-        } 
+        } */
+        appliers["0"] = {script.echo "teste 0"}
+        appliers["1"] = {script.echo "teste 1"}
 
         return appliers       
     }
