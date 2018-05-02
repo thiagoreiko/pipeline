@@ -19,39 +19,28 @@ class Database implements Serializable {
 
       if(scriptsFolderPath != null) { this.scriptsFolderPath = scriptsFolderPath }
       else { this.scriptsFolderPath = "${body.WORKSPACE}\\DB\\" }  
-    }    
-
-    def validateScripts() {
-        body.echo 'RUNNING VALIDATING SCRIPTS'   
-        
-        def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
-            for (sc in db.Schemas) {
-                if(sc.Aplicar) {
-                    body.sqlScriptValidator([
-                        changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                        url : "${db.ConnectionString}", 
-                        classpath : "${classpath}", 
-                        driverClassname : "${driverClassname}", 
-                        credentialsId : "${sc.Credenciais}", 
-                        sqlCommands : "drop,truncate", 
-                        validateRollbackScript : false, 
-                        buildFailedWhenInvalid : false
-                    ])                
-                }
-            }
-        }
     }
-    
+
     @NonCPS
-    def fnc() {
+    def fncValidateScripts() {
         def arr = [:]
         def json = new JsonSlurper().parseText(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
-                        body.echo "Executando scripts DB "                          
+                        //body.echo "Validating scripts DB "                          
+
+                        body.sqlScriptValidator([
+                            changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            url : "${db.ConnectionString}", 
+                            classpath : "${classpath}", 
+                            driverClassname : "${driverClassname}", 
+                            credentialsId : "${credentialsId}", 
+                            sqlCommands : "drop,truncate", 
+                            validateRollbackScript : false, 
+                            buildFailedWhenInvalid : false
+                        ])
                     }
                 }
             }
@@ -60,17 +49,52 @@ class Database implements Serializable {
         return arr
     }
 
-    //def test = { val -> body.echo "${val}"}
+    @NonCPS
+    def fncExecuteScripts() {
+        def arr = [:]
+        def json = new JsonSlurper().parseText(jsonDb)
+        for (db in json.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
+                        //body.echo "Executing scripts DB "                          
+
+                        //execute script
+                        body.liquibaseUpdate 
+                            changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            classpath: "${classpath}", 
+                            credentialsId: "${sc.Credenciais}", 
+                            driverClassname: "${driverClassname}", 
+                            tagonsuccessfulbuild: true, 
+                            testrollbacks: true, 
+                            url: "${db.ConnectionString}"
+                        
+                        //save dblog
+                        body.liquibaseDbDoc 
+                            changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            classpath: "${classpath}", 
+                            credentialsId: "${sc.Credenciais}", 
+                            driverClassname: "${driverClassname}", 
+                            outputDirectory: ".\\dbdoc\\${db.Name}\\${sc.Schema}", 
+                            url: "${db.ConnectionString}"
+                    }
+                }
+            }
+        } 
+
+        return arr
+    }    
+
+    def validateScripts() {
+        body.echo 'RUNNING VALIDATING SCRIPTS'
+        fncValidateScripts()
+    }
 
     def executeScripts() {
         body.echo "Executing scripts"
         
         def appliers = [:] 
-        appliers = fnc()
-        // for (int i = 0; i < 4; i++) { 
-        //     def index = i
-        //     appliers[index] = { test(index) }          
-        // }
+        appliers = fncExecuteScripts()
 
         return appliers       
     }
