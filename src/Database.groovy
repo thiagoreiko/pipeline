@@ -44,9 +44,11 @@ class Database implements Serializable {
     }
     
     
-    def test(index){
+    /*def test(index){
         return {script.echo "teste ${index}"}        
-    }
+    }*/
+
+    def test = { val -> script.echo "${val}"}
 
     def executeScripts() {
         script.echo "Executing scripts"
@@ -69,8 +71,8 @@ class Database implements Serializable {
                 }
             }
         } */
-        for (int i = 0; i < 4; i++) {
-            appliers["${i}"] = {script.echo "teste ${i}"}            
+        for (int i = 0; i < 4; i++) { 
+            appliers[i] = { test(i) }          
         }
 
         return appliers       
