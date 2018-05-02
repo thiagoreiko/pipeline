@@ -72,7 +72,8 @@ class Database implements Serializable {
             }
         } */
         for (int i = 0; i < 4; i++) { 
-            appliers[i] = { test(i) }          
+            def index = i
+            appliers[index] = { test(index) }          
         }
 
         return appliers       
