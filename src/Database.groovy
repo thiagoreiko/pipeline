@@ -64,8 +64,8 @@ class Database implements Serializable {
                     //    }
                     //}
 
-                    appliers["0"] = test(0)
-                    appliers["1"] = test(1)
+                    appliers["0"] = {script.echo "teste 0"}
+                    appliers["1"] = {script.echo "teste 1"}
                 }
             }
         } 
