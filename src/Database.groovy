@@ -43,15 +43,9 @@ class Database implements Serializable {
         }
     }
     
-    @NonCPS
+    
     def test(index){
-        return {
-            script.node {
-                script.stage("Executando ${index}") {
-                    script.echo "teste ${index}"
-                }
-            }
-        }
+        return {index: {script.echo "teste ${index}"}}        
     }
 
     def executeScripts() {
