@@ -23,7 +23,7 @@ class Database implements Serializable {
 
     def validateScripts() {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
-        //def json = new JsonSlurper().parseText(jsonDb)
+        
         for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
@@ -44,6 +44,19 @@ class Database implements Serializable {
 
     def executeScripts() {
         script.echo "Executing scripts"
+        def appliers = [:] 
+
+        for(db in jsonDb.Databases) {
+            for (db in json.Databases) {
+                for (sc in db.Schemas) {
+                    if(sc.Aplicar) {
+                        appliers["DB_${db.Name}_SCHEMA_${sc.Schema}_${BUILD_NUMBER}"] = {
+                        
+                        }
+                    }
+                }
+            }
+        }
     }
 
     def testVariables() {
