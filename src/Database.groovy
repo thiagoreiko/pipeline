@@ -74,10 +74,10 @@ class Database implements Serializable {
                 }
             }
         }
-    }
+      }
     
-    return appliers
-  }
+      return appliers
+    }
 
     def testVariables() {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
