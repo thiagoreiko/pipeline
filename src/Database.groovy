@@ -50,10 +50,10 @@ class Database implements Serializable {
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
-                    def name = db.Name
-                    def schema = sc.Schema
-                    def buildNumber = body.BUILD_NUMBER
-                    arr["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
+                    // def name = db.Name
+                    // def schema = sc.Schema
+                    // def buildNumber = body.BUILD_NUMBER
+                    arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
                         body.echo "Executando scripts DB "                          
                     }
                 }
@@ -63,26 +63,13 @@ class Database implements Serializable {
         return arr
     }
 
-    def test = { val -> body.echo "${val}"}
+    //def test = { val -> body.echo "${val}"}
 
     def executeScripts() {
         body.echo "Executing scripts"
+        
         def appliers = [:] 
         appliers = fnc()
-
-        // def json = new JsonSlurper().parseText(jsonDb)
-        // for (db in json.Databases) {
-        //     for (sc in db.Schemas) {
-        //         if(sc.Aplicar) {
-        //             def name = db.Name
-        //             def schema = sc.Schema
-        //             def buildNumber = body.BUILD_NUMBER
-        //             appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
-        //                 body.echo "Executando scripts DB "                          
-        //             }
-        //         }
-        //     }
-        // } 
         // for (int i = 0; i < 4; i++) { 
         //     def index = i
         //     appliers[index] = { test(index) }          
@@ -90,18 +77,4 @@ class Database implements Serializable {
 
         return appliers       
     }
-
-    def testVariables() {
-        body.echo 'Testing'   
-        
-        def json = new JsonSlurper().parseText(jsonDb)
-        for (db in json.Databases) {
-            for (sc in db.Schemas) {
-                if(sc.Aplicar) {
-                    body.echo "${sc.Credenciais}"
-                }
-            }
-        }
-    }
-    
 }
