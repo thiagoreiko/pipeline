@@ -43,17 +43,9 @@ class Database implements Serializable {
         }
     }
     
-    
-    /*def test(index){
-        return {body.echo "teste ${index}"}        
-    }*/
-
-    def test = { val -> body.echo "${val}"}
-
-    def executeScripts() {
-        body.echo "Executing scripts"
-        def appliers = [:] 
-
+    @NonCPS
+    def fnc() {
+        def arr = [:]
         def json = new JsonSlurper().parseText(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
@@ -61,12 +53,34 @@ class Database implements Serializable {
                     def name = db.Name
                     def schema = sc.Schema
                     def buildNumber = body.BUILD_NUMBER
-                    appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
+                    arr["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
                         body.echo "Executando scripts DB "                          
                     }
                 }
             }
         } 
+    }
+
+    def test = { val -> body.echo "${val}"}
+
+    def executeScripts() {
+        body.echo "Executing scripts"
+        def appliers = [:] 
+        appliers = fnc()
+        
+        // def json = new JsonSlurper().parseText(jsonDb)
+        // for (db in json.Databases) {
+        //     for (sc in db.Schemas) {
+        //         if(sc.Aplicar) {
+        //             def name = db.Name
+        //             def schema = sc.Schema
+        //             def buildNumber = body.BUILD_NUMBER
+        //             appliers["DB_${name}_SCHEMA_${schema}_${buildNumber}"] = {
+        //                 body.echo "Executando scripts DB "                          
+        //             }
+        //         }
+        //     }
+        // } 
         // for (int i = 0; i < 4; i++) { 
         //     def index = i
         //     appliers[index] = { test(index) }          
