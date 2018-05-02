@@ -32,6 +32,6 @@ class PipelineUtilities {
 
     script.echo "${script.RemoveReadOnly}"
     
-    //script.bat '\"${script.RemoveReadOnly}\" \"${workspace}\"'
+    script.bat "${script.RemoveReadOnly}" "${workspace}"
   }
 }
