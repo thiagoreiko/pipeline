@@ -7,8 +7,9 @@ class Database implements Serializable {
     def classpath = "D:\\liquibase-bin\\ojdbc6.jar"
     def driverClassname = "oracle.jdbc.OracleDriver"
 
-    Database(script, scriptsFolderPath = null, classpath = null, driverClassname = null){
+    Database(script, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.script = script
+        this.jsonDb = jsonDb
 
       if(classpath != null) { this.classpath = classpath }
       
@@ -18,7 +19,7 @@ class Database implements Serializable {
       else { this.scriptsFolderPath = "${script.WORKSPACE}\\DB\\" }  
     }
 
-    def validateScripts(jsonDb, credentialsId) {
+    def validateScripts(credentialsId) {
         script.echo 'RUNNING VALIDATING SCRIPTS'   
     
         // for (db in jsonDb.Databases) {
