@@ -45,9 +45,11 @@ class Database implements Serializable {
     
     @NonCPS
     def test(index){
-        return script.node {
-            script.stage("Executando ${index}") {                            
-                script.echo "teste ${index}"
+        return {
+            script.node {
+                script.stage("Executando ${index}") {                            
+                    script.echo "teste ${index}"
+                }
             }
         }
     }
@@ -68,8 +70,8 @@ class Database implements Serializable {
                     //    }
                     //}
 
-                    appliers["0"] = test("0")
-                    appliers["1"] = test("1")
+                    appliers["0"] = test(0)
+                    appliers["1"] = test(1)
                 }
             }
         } 
