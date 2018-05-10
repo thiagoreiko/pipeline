@@ -34,34 +34,24 @@ class PipelineUtilities {
   }
 
   static def sendPromotionNotification(script, to) {
-    sendEmail(
-      script,
-      'dxc-static-pl-promotion',
-      '$DEFAULT_POSTSEND_SCRIPT',
-      '$DEFAULT_PRESEND_SCRIPT',
-      '$DEFAULT_REPLYTO',
-      '$DEFAULT_SUBJECT',
-      to
-    )
+    sendEmail(script, 'dxc-static-pl-promotion', to)
   }
 
   static def sendApprovalNotification(script, to) {
-    sendEmail(
-      script,
-      'dxc-static-pl-approval',
-      '$DEFAULT_POSTSEND_SCRIPT',
-      '$DEFAULT_PRESEND_SCRIPT',
-      '$DEFAULT_REPLYTO',
-      '$DEFAULT_SUBJECT',
-      to
-    )
+    sendEmail(script,'dxc-static-pl-approval', to )
   }
 
-  static def sendEmail(script, template, postsendScript, presendScript, replyTo, subject, to){
+  static def sendEmail(script, template, to, postSendScript = null, preSendScript = null, replyTo = null, subject = null){
+    
+    if (postSendScript == null) { postSendScript = '$DEFAULT_POSTSEND_SCRIPT'}
+    if (preSendScript == null) { preSendScript = '$DEFAULT_PRESEND_SCRIPT'}
+    if (replyTo == null) { replyTo = '$DEFAULT_REPLYTO'}
+    if (subject == null) { subject = '$DEFAULT_SUBJECT'}
+
     script.emailext( 
       body: '${JELLY_SCRIPT,template="' + template + '"}', 
-      postsendScript: postsendScript, 
-      presendScript: presendScript, 
+      postsendScript: postSendScript, 
+      presendScript: preSendScript, 
       replyTo: replyTo, 
       subject: subject, 
       to: to
