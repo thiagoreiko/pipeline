@@ -47,7 +47,7 @@ class PipelineUtilities {
 
   static def sendEmail(script, template, postsendScript, presendScript, replyTo, subject, to){
     script.emailext( 
-      body: '${JELLY_SCRIPT,template=\"${template}\"}', 
+      body: '${JELLY_SCRIPT,template=${template}}', 
       postsendScript: postsendScript, 
       presendScript: presendScript, 
       replyTo: replyTo, 
