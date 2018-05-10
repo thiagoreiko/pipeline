@@ -2,7 +2,7 @@ package org.foo
 
 class Sonar {
     
-    static def sqScannerMsBuildHome = 'test'
+    static sqScannerMsBuildHome = 'test'
 
     static def begin(script) {
         script.echo "${sqScannerMsBuildHome} - Begin"    
