@@ -45,6 +45,18 @@ class PipelineUtilities {
     )
   }
 
+  static def sendApprovalNotification(script, to) {
+    sendEmail(
+      script,
+      'dxc-static-pl-approval',
+      '$DEFAULT_POSTSEND_SCRIPT',
+      '$DEFAULT_PRESEND_SCRIPT',
+      '$DEFAULT_REPLYTO',
+      '$DEFAULT_SUBJECT',
+      to
+    )
+  }
+
   static def sendEmail(script, template, postsendScript, presendScript, replyTo, subject, to){
     script.emailext( 
       body: '${JELLY_SCRIPT,template="' + template + '"}', 
