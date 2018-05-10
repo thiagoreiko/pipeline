@@ -85,6 +85,20 @@ class Database implements Serializable {
         return arr
     }    
 
+    @NonCPS
+    def fncPublishReports() {
+        def json = new JsonSlurper().parseText(jsonDb)
+        for (db in json.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    body.publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
+										reportDir: "dbDoc\\${db.Name}\\${sc.Schema}", reportFiles: 'index.html', 
+										reportName: 'dbDoc', reportTitles: 'dbDoc'])
+                }
+            }
+        }
+    }
+
     def validateScripts() {
         body.echo 'RUNNING VALIDATING SCRIPTS'
         fncValidateScripts()
@@ -97,5 +111,10 @@ class Database implements Serializable {
         appliers = fncExecuteScripts()
 
         return appliers       
+    }
+
+    def publishReports(){
+        body.echo 'PUBLISHING REPORTS'
+        fncPublishReports()
     }
 }
