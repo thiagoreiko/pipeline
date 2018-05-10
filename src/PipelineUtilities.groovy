@@ -32,4 +32,27 @@ class PipelineUtilities {
     
     script.bat "\"${script.RemoveReadOnly}\" \"${workspace}\""
   }
+
+  static def sendPromotionNotification(script, to) {
+    sendEmail(
+      script,
+      'dxc-static-pl-promotion',
+      '$DEFAULT_POSTSEND_SCRIPT',
+      '$DEFAULT_PRESEND_SCRIPT',
+      '$DEFAULT_REPLYTO',
+      '$DEFAULT_SUBJECT',
+      to
+    )
+  }
+
+  static def sendEmail(script, template, postsendScript, presendScript, replyTo, subject, to){
+    script.emailext( 
+      body: '${JELLY_SCRIPT,template="${template}"}', 
+      postsendScript: postsendScript, 
+      presendScript: presendScript, 
+      replyTo: replyTo, 
+      subject: subject, 
+      to: to
+    )
+  }
 }
