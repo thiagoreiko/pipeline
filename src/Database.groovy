@@ -36,7 +36,7 @@ class Database implements Serializable {
                             url : "${db.ConnectionString}", 
                             classpath : "${classpath}", 
                             driverClassname : "${driverClassname}", 
-                            credentialsId : "${credentialsId}", 
+                            credentialsId : "${sc.Credenciais.replace("UUID-", "")}", 
                             sqlCommands : "drop,truncate", 
                             validateRollbackScript : false, 
                             buildFailedWhenInvalid : false
@@ -63,7 +63,7 @@ class Database implements Serializable {
                         body.liquibaseUpdate 
                             changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                             classpath: "${classpath}", 
-                            credentialsId: "${sc.Credenciais}", 
+                            credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
                             tagonsuccessfulbuild: true, 
                             testrollbacks: true, 
@@ -73,7 +73,7 @@ class Database implements Serializable {
                         body.liquibaseDbDoc 
                             changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                             classpath: "${classpath}", 
-                            credentialsId: "${sc.Credenciais}", 
+                            credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
                             outputDirectory: ".\\dbdoc\\${db.Name}\\${sc.Schema}", 
                             url: "${db.ConnectionString}"
