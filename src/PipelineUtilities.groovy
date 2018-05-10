@@ -41,6 +41,10 @@ class PipelineUtilities {
     sendEmail(script,'dxc-static-pl-approval', to )
   }
 
+  static def sendAnalysisNotification(script, to) {
+    sendEmail(script,'dxc-static-analysis', to )
+  }
+
   static def sendEmail(script, template, to, postSendScript = null, preSendScript = null, replyTo = null, subject = null){
     
     if (postSendScript == null) { postSendScript = '$DEFAULT_POSTSEND_SCRIPT'}
