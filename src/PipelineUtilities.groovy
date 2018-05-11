@@ -66,7 +66,7 @@ class PipelineUtilities {
   static def executeApprovalFlow(script, time, submitter, approvalNotificationRecipient) {
     
     //script.input message: 'Scripts de banco de dados autorizado?', parameters: [choice(choices: 'SIM\nNÃO', description: 'Aprovado?', name: 'APROVADO'), text(defaultValue: '', description: 'Apenas em caso rejeição dos scripts', name: 'JUSTIFICATIVA')], submitter: "${submitter}", submitterParameter: 'APPROVER'
-    script.input message: 'Scripts de banco de dados autorizado?'
+    script.input message: 'Scripts de banco de dados autorizado?', ok: 'Teste', submitter: 'ct15184', submitterParameter: 'approved'
 
 
     /*def DBAPPROVAL
