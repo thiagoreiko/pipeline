@@ -64,7 +64,10 @@ class PipelineUtilities {
   }
 
   static def executeApprovalFlow(script, time, submitter, approvalNotificationRecipient) {
-    def DBAPPROVAL
+    
+    script.input message: 'Scripts de banco de dados autorizado?', parameters: [choice(choices: 'SIM\nNÃO', description: 'Aprovado?', name: 'APROVADO'), text(defaultValue: '', description: 'Apenas em caso rejeição dos scripts', name: 'JUSTIFICATIVA')], submitter: "${submitter}", submitterParameter: 'APPROVER'
+    
+    /*def DBAPPROVAL
 
     script.timeout(time:time, unit:'HOURS') {
       DBAPPROVAL = script.input message: 'Scripts de banco de dados autorizado?', parameters: [choice(choices: 'SIM\nNÃO', description: 'Aprovado?', name: 'APROVADO'), text(defaultValue: '', description: 'Apenas em caso rejeição dos scripts', name: 'JUSTIFICATIVA')], submitter: submitter, submitterParameter: 'APPROVER'
@@ -88,5 +91,6 @@ class PipelineUtilities {
     }
 
     return DBAPPROVAL
+    */
   }
 }
