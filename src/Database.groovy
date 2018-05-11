@@ -22,7 +22,7 @@ class Database implements Serializable {
     }
 
     @NonCPS
-    def fncValidateScripts() {
+    def fncValidateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
         def arr = [:]
         def json = new JsonSlurper().parseText(jsonDb)
         for (db in json.Databases) {
@@ -37,9 +37,9 @@ class Database implements Serializable {
                             classpath : "${classpath}", 
                             driverClassname : "${driverClassname}", 
                             credentialsId : "${sc.Credenciais.replace("UUID-", "")}", 
-                            sqlCommands : "drop,truncate", 
-                            validateRollbackScript : false, 
-                            buildFailedWhenInvalid : false
+                            sqlCommands : sqlCommands, 
+                            validateRollbackScript : validateRollbackScript, 
+                            buildFailedWhenInvalid : buildFailedWhenInvalid
                         ])
                     }
                 }
