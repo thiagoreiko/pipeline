@@ -65,30 +65,30 @@ class PipelineUtilities {
 
   static def executeApprovalFlow(script, time, submitter, approvalNotificationRecipient) {
     
-    def DBAPPROVAL
+    def dbaApproval
 
     script.timeout(time:time, unit:'HOURS') {
-      DBAPPROVAL = script.input message: 'Scripts de banco de dados autorizado?', ok: 'Continue', parameters: [script.choice(choices: 'SIM\nNÃO', description: 'Aprovado?', name: 'APROVADO'), script.text(defaultValue: '', description: 'Apenas em caso rejeição dos scripts', name: 'JUSTIFICATIVA')], submitter: "${submitter}", submitterParameter: 'APPROVER'
+      dbaApproval = script.input message: 'Scripts de banco de dados autorizado?', ok: 'Continue', parameters: [script.choice(choices: 'SIM\nNÃO', description: 'Aprovado?', name: 'APROVADO'), script.text(defaultValue: '', description: 'Apenas em caso rejeição dos scripts', name: 'JUSTIFICATIVA')], submitter: "${submitter}", submitterParameter: 'APPROVER'
     }
     
-    script.echo "Matricula do Aprovador : ${DBAPPROVAL['APPROVER']}"
-    script.echo "Aprovado : ${DBAPPROVAL['APROVADO']}"
-    script.echo "Justificativa (Obrigatório somente em caso de reprovação) : ${DBAPPROVAL['JUSTIFICATIVA']}"
+    script.echo "Matricula do Aprovador : ${dbaApproval['APPROVER']}"
+    script.echo "Aprovado : ${dbaApproval['APROVADO']}"
+    script.echo "Justificativa (Obrigatório somente em caso de reprovação) : ${dbaApproval['JUSTIFICATIVA']}"
     
-    if (DBAPPROVAL['APROVADO'] == 'SIM') {
+    if (dbaApproval['APROVADO'] == 'SIM') {
       script.env.APPROVAL_MAIL_TITLE = 'APPROVED'
     } else {
-      script.env.APPROVAL_MAIL_TITLE = 'REAPPROVED'
-      script.env.REAPPROVAL_REASON = DBAPPROVAL['JUSTIFICATIVA']
+      script.env.APPROVAL_MAIL_TITLE = 'DISAPPROVED'
+      script.env.REAPPROVAL_REASON = dbaApproval['JUSTIFICATIVA']
     }
         
     sendApprovalNotification(script, approvalNotificationRecipient)
     
-    if (DBAPPROVAL['APROVADO'] != 'SIM') {
+    if (dbaApproval['APROVADO'] != 'SIM') {
       script.currentBuild.result = 'FAILURE'
     }
 
-    return DBAPPROVAL
+    return dbaApproval
     
   }
 }
