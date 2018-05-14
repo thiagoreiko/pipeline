@@ -29,8 +29,7 @@ class Database implements Serializable {
     
     def validateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
         
-        def json = jsonDb//jsonParse(jsonDb)
-        for (db in json.Databases) {
+        for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {                    
                     body.echo "Validating scripts DB "                          
@@ -48,5 +47,40 @@ class Database implements Serializable {
                 }
             }
         }        
+    }
+
+    def executeScripts() {
+        def arr = [:]
+        
+        for (db in jsonDb.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
+                        body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"                          
+
+                        //execute script
+                       /* body.liquibaseUpdate 
+                            changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            classpath: "${classpath}", 
+                            credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
+                            driverClassname: "${driverClassname}", 
+                            tagonsuccessfulbuild: true, 
+                            testrollbacks: true, 
+                            url: "${db.ConnectionString}"
+                        
+                        //save dblog
+                        body.liquibaseDbDoc 
+                            changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                            classpath: "${classpath}", 
+                            credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
+                            driverClassname: "${driverClassname}", 
+                            outputDirectory: ".\\dbdoc\\${db.Name}\\${sc.Schema}", 
+                            url: "${db.ConnectionString}"*/
+                    }
+                }
+            }
+        } 
+
+        return arr
     }
 }
