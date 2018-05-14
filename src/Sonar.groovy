@@ -2,7 +2,8 @@ package org.foo
 
 class Sonar {
     def sqScannerMsBuildHome
-
+    def body
+    
     Sonar(body) {
         this.body = body
         this.sqScannerMsBuildHome = body.tool 'SonarQube Scanner for MSBuild 3.0'
