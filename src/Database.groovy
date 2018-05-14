@@ -1,5 +1,6 @@
 package org.foo
 import groovy.json.JsonSlurper
+import org.foo.PipelineUtilities.*
 
 class Database implements Serializable {
 
@@ -99,6 +100,42 @@ class Database implements Serializable {
         }
     }
 
+    @NonCPS
+    def fncSaveIdLatestValidScriptLiquibase(environment){
+        def json = new JsonSlurper().parseText(jsonDb)
+        for (db in json.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${JOB_NAME}-${BUILD_NUMBER}")
+                }
+            }
+        }
+    }
+
+    @NonCPS
+    def fncRollbackToLatestStableVersion(environment){
+        def fallbacks = [:]
+        def json = new JsonSlurper().parseText(jsonDb)
+        for (db in json.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    fallbacks["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
+                        body.echo "Restoring scripts "
+                        liquibaseRollback 
+                        	changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                        	classpath: "${classpath}", 
+                        	credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
+                        	driverClassname: "${driverClassname}", 
+                        	rollbackToTag: "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE",//"${JOB_NAME}-${BUILD_NUMBER}",
+                        	url: "${db.ConnectionString}"
+                    }
+                }
+            }
+        } 
+
+        return fallbacks
+    }
+
     def validateScripts() {
         body.echo 'RUNNING VALIDATING SCRIPTS'
         fncValidateScripts()
@@ -116,5 +153,15 @@ class Database implements Serializable {
     def publishReports(){
         body.echo 'PUBLISHING REPORTS'
         fncPublishReports()
+    }
+
+    def saveIdLatestValidScriptLiquibase(environment) {
+        body.echo 'SAVING THE LATEST VALID SCRIPTS'
+        fncSaveIdLatestValidScriptLiquibase(environment)
+    }
+
+    def rollbackToLatestStableVersion(environment) {
+        body.echo 'RESTORING THE LATEST STABLE VERSION OF THE DATABASE'
+        fncRollbackToLatestStableVersion(environment)
     }
 }
