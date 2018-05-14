@@ -1,6 +1,6 @@
 package org.foo
 
-class Sonar {
+class Sonar implements Serializable {
     def sqScannerMsBuildHome
     def body
     
