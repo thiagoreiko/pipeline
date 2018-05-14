@@ -32,9 +32,9 @@ class Database implements Serializable {
         for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {                    
-                    body.echo "Validating scripts DB "                          
+                    //body.echo "Validating scripts DB "                          
 
-                    /*body.sqlScriptValidator([
+                    body.sqlScriptValidator([
                         changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                         url : "${db.ConnectionString}", 
                         classpath : "${classpath}", 
@@ -43,7 +43,7 @@ class Database implements Serializable {
                         sqlCommands : sqlCommands, 
                         validateRollbackScript : validateRollbackScript, 
                         buildFailedWhenInvalid : buildFailedWhenInvalid
-                    ])*/
+                    ])
                 }
             }
         }        
@@ -56,7 +56,7 @@ class Database implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
-                        body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"
+                        //body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"
 
                         //execute script
                         body.liquibaseUpdate( 
@@ -82,5 +82,49 @@ class Database implements Serializable {
         } 
 
         return arr
+    }
+
+    def publishReports() {
+        for (db in jsonDb.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    body.publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
+										reportDir: "dbDoc\\${db.Name}\\${sc.Schema}", reportFiles: 'index.html', 
+										reportName: 'dbDoc', reportTitles: 'dbDoc'])
+                }
+            }
+        }
+    }
+
+    def saveIdLatestValidScriptLiquibase(environment){
+        for (db in jsonDb.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${JOB_NAME}-${BUILD_NUMBER}")
+                }
+            }
+        }
+    }
+
+    def rollbackToLatestStableVersion(environment){
+        def fallbacks = [:]
+        for (db in jsonDb.Databases) {
+            for (sc in db.Schemas) {
+                if(sc.Aplicar) {
+                    fallbacks["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
+                        body.echo "Restoring scripts "
+                        liquibaseRollback(
+                        	changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                        	classpath: "${classpath}", 
+                        	credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
+                        	driverClassname: "${driverClassname}", 
+                        	rollbackToTag: "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE",//"${JOB_NAME}-${BUILD_NUMBER}",
+                        	url: "${db.ConnectionString}")
+                    }
+                }
+            }
+        } 
+
+        return fallbacks
     }
 }
