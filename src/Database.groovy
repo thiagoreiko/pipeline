@@ -12,7 +12,7 @@ class Database implements Serializable {
 
     Database(body, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.body = body
-        this.jsonDb = jsonDb
+        this.jsonDb = jsonParse(jsonDb)
 
       if(classpath != null) { this.classpath = classpath }
       
@@ -29,7 +29,7 @@ class Database implements Serializable {
     
     def validateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
         
-        def json = jsonParse(jsonDb)
+        def json = jsonDb//jsonParse(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {                    
