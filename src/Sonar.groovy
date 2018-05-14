@@ -6,7 +6,7 @@ class Sonar {
     
     Sonar(body) {
         this.body = body
-        this.sqScannerMsBuildHome = tool 'SonarQube Scanner for MSBuild 3.0'
+        this.sqScannerMsBuildHome = body.tool 'SonarQube Scanner for MSBuild 3.0'
     }
 
     def begin(key, name, version, additionalParameter = null) {
