@@ -59,7 +59,7 @@ class Database implements Serializable {
                         body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"                          
 
                         //execute script
-                       /* body.liquibaseUpdate 
+                        body.liquibaseUpdate 
                             changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                             classpath: "${classpath}", 
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
@@ -75,7 +75,7 @@ class Database implements Serializable {
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
                             outputDirectory: ".\\dbdoc\\${db.Name}\\${sc.Schema}", 
-                            url: "${db.ConnectionString}"*/
+                            url: "${db.ConnectionString}"
                     }
                 }
             }
