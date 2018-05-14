@@ -56,26 +56,26 @@ class Database implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
-                        body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"                          
+                        body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"
 
                         //execute script
-                        body.liquibaseUpdate 
+                        body.liquibaseUpdate( 
                             changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                             classpath: "${classpath}", 
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
                             tagonsuccessfulbuild: true, 
                             testrollbacks: true, 
-                            url: "${db.ConnectionString}"
+                            url: "${db.ConnectionString}")
                         
                         //save dblog
-                        body.liquibaseDbDoc 
+                        body.liquibaseDbDoc(
                             changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                             classpath: "${classpath}", 
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
                             outputDirectory: ".\\dbdoc\\${db.Name}\\${sc.Schema}", 
-                            url: "${db.ConnectionString}"
+                            url: "${db.ConnectionString}")
                     }
                 }
             }
