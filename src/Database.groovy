@@ -21,7 +21,7 @@ class Database implements Serializable {
       if(scriptsFolderPath != null) { this.scriptsFolderPath = scriptsFolderPath }
       else { this.scriptsFolderPath = "${body.WORKSPACE}\\DB\\" }  
     }
-/*
+
     @NonCPS
     def fncValidateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
         def arr = [:]
@@ -164,5 +164,5 @@ class Database implements Serializable {
         body.echo 'RESTORING THE LATEST STABLE VERSION OF THE DATABASE'
         fncRollbackToLatestStableVersion(environment)
     }
-    */
+    
 }
