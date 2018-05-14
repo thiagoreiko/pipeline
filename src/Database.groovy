@@ -32,23 +32,21 @@ class Database implements Serializable {
         def json = jsonParse(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
-                if(sc.Aplicar) {
-                    arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
-                        body.echo "Validating scripts DB "                          
+                if(sc.Aplicar) {                    
+                    body.echo "Validating scripts DB "                          
 
-                        /*body.sqlScriptValidator([
-                            changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                            url : "${db.ConnectionString}", 
-                            classpath : "${classpath}", 
-                            driverClassname : "${driverClassname}", 
-                            credentialsId : "${sc.Credenciais.replace("UUID-", "")}", 
-                            sqlCommands : sqlCommands, 
-                            validateRollbackScript : validateRollbackScript, 
-                            buildFailedWhenInvalid : buildFailedWhenInvalid
-                        ])*/
-                    }
+                    /*body.sqlScriptValidator([
+                        changeLogFile : "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
+                        url : "${db.ConnectionString}", 
+                        classpath : "${classpath}", 
+                        driverClassname : "${driverClassname}", 
+                        credentialsId : "${sc.Credenciais.replace("UUID-", "")}", 
+                        sqlCommands : sqlCommands, 
+                        validateRollbackScript : validateRollbackScript, 
+                        buildFailedWhenInvalid : buildFailedWhenInvalid
+                    ])*/
                 }
             }
-        } 
+        }        
     }
 }
