@@ -28,7 +28,7 @@ class Database implements Serializable {
     }
     
     def validateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
-        def arr = [:]
+        
         def json = jsonParse(jsonDb)
         for (db in json.Databases) {
             for (sc in db.Schemas) {
@@ -50,7 +50,5 @@ class Database implements Serializable {
                 }
             }
         } 
-
-        return arr
     }
 }
