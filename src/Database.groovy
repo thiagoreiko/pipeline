@@ -2,7 +2,7 @@ package org.foo
 import groovy.json.JsonSlurperClassic
 import org.foo.PipelineUtilities.*
 
-class Database extends PipelineUtilities implements Serializable {
+class Database implements Serializable {
 
     def body
     def jsonDb
@@ -104,7 +104,7 @@ class Database extends PipelineUtilities implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     //PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${JOB_NAME}-${BUILD_NUMBER}")
-                    //PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
+                    PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
                 }
             }
         }

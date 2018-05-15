@@ -3,7 +3,7 @@ import hudson.slaves.EnvironmentVariablesNodeProperty
 import jenkins.model.Jenkins
 import hudson.model.*
 
-class PipelineUtilities {
+public class PipelineUtilities {
 
   static def saveGlobalVars(script, key, value) {
     def instance = Jenkins.getInstance()
