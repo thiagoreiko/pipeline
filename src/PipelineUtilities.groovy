@@ -44,7 +44,7 @@ class PipelineUtilities {
     }
 
     script.envVars.put(key,value)
-    //script.instance.save()
+    script.instance.save()
   }
 
   static def removeReadOnly(script, workspace = null) {
