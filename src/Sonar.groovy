@@ -10,8 +10,10 @@ class Sonar {
     }
 
     def begin(key, name, version, additionalParameter = null) {
+        def addParam = ""
+        if(additionalParameter != null){addparam = additionalParameter}
         //body.bat "\"${sqScannerMsBuildHome}\\MSBuild.SonarQube.Runner.exe\" begin /k:${key} /n:${name} /v:${version} ${additionalParameter}"
-        body.bat "\"${body.tool 'SonarQube Scanner for MSBuild 3.0'}\\MSBuild.SonarQube.Runner.exe\" begin /k:${key} /n:${name} /v:${version}"
+        body.bat "\"${body.tool 'SonarQube Scanner for MSBuild 3.0'}\\MSBuild.SonarQube.Runner.exe\" begin /k:${key} /n:${name} /v:${version} ${addParam}"
     }
 
     def end() {
