@@ -40,11 +40,11 @@ class PipelineUtilities {
       script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
       script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
     } else {
-      script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
+      //script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
     }
 
-    script.envVars.put(key,value)
-    script.instance.save()
+    //script.envVars.put(key,value)
+    //script.instance.save()
   }
 
   static def removeReadOnly(script, workspace = null) {
