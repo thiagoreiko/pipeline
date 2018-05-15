@@ -19,7 +19,7 @@ class Database implements Serializable {
       if(driverClassname != null) { this.driverClassname = driverClassname }
 
       if(scriptsFolderPath != null) { this.scriptsFolderPath = scriptsFolderPath }
-      else { this.scriptsFolderPath = "${body.WORKSPACE}\\DB\\" }  
+      else { this.scriptsFolderPath = "${body.WORKSPACE}" }  
     }
 
     @NonCPS
