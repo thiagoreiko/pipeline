@@ -30,10 +30,10 @@ class PipelineUtilities {
     def instance = Jenkins.getInstance()
     //script.instance = Jenkins.getInstance()
     def globalNodeProperties = instance.getGlobalNodeProperties()
-    script.envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
+    def envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
 
-    /*script.newEnvVarsNodeProperty = null
-    script.envVars = null
+    script.newEnvVarsNodeProperty = null
+    /*script.envVars = null
 
     if ( script.envVarsNodePropertyList == null || script.envVarsNodePropertyList.size() == 0 ) {
       script.newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
