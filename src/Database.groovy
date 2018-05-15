@@ -1,6 +1,6 @@
 package org.foo
 import groovy.json.JsonSlurperClassic
-import PipelineUtilities
+
 
 class Database implements Serializable {
 
