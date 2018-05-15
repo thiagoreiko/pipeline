@@ -52,23 +52,23 @@ class Database implements Serializable {
     def executeScripts(params) {
         def arr = [:]
         
-        body.echo "valor da variável tagOnSuccessFulbuild: ${params.tagOnSuccessFulbuild}"
-        body.echo "valor da variável testRollbacks: ${params.testRollbacks}"
-
+        if(params.tagOnSuccessFulbuild == null){params.tagOnSuccessFulbuild = true}
+        if(params.testRollbacks == null){params.testRollbacks = true}
+        
         for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     arr["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
-                        body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"
+                        //body.echo "Executing scripts DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"
 
                         //execute script
-                        /*body.liquibaseUpdate( 
+                        body.liquibaseUpdate( 
                             changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                             classpath: "${classpath}", 
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
-                            tagOnSuccessfulBuild: tagOnSuccessFulbuild, 
-                            testRollbacks: testRollbacks, 
+                            tagOnSuccessfulBuild: params.tagOnSuccessFulbuild, 
+                            testRollbacks: params.testRollbacks, 
                             url: "${db.ConnectionString}")
                         
                         //save dblog
@@ -78,7 +78,7 @@ class Database implements Serializable {
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
                             outputDirectory: ".\\dbdoc\\${db.Name}\\${sc.Schema}", 
-                            url: "${db.ConnectionString}")*/
+                            url: "${db.ConnectionString}")
                     }
                 }
             }
