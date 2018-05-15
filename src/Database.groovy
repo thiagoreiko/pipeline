@@ -15,7 +15,7 @@ class Database implements Serializable {
         this.jsonDb = jsonParse(jsonDb)
         this.pipe = pipe
 
-        //body.echo "${pipe}"
+        body.echo "${pipe}"
 
       if(classpath != null) { this.classpath = classpath }
       
