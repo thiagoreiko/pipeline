@@ -33,9 +33,9 @@ class PipelineUtilities {
     def envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
 
     script.newEnvVarsNodeProperty = null
-    /*script.envVars = null
+    script.envVars = null
 
-    if ( script.envVarsNodePropertyList == null || script.envVarsNodePropertyList.size() == 0 ) {
+    /*if ( script.envVarsNodePropertyList == null || script.envVarsNodePropertyList.size() == 0 ) {
       script.newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
       script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
       script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
