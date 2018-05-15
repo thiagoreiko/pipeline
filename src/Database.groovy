@@ -14,7 +14,7 @@ class Database implements Serializable {
     Database(body, jsonDb, pipe, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.body = body
         this.jsonDb = jsonParse(jsonDb)
-        this.pipe =  new org.foo.PipelineUtilities()
+        this.pipe =  PipelineUtilities
 
       if(classpath != null) { this.classpath = classpath }
       
