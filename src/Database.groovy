@@ -49,11 +49,11 @@ class Database implements Serializable {
         }        
     }
 
-    def executeScripts(tagOnSuccessFulbuild = true, testRollbacks = true) {
+    def executeScripts(params) {
         def arr = [:]
         
-        body.echo "valor da variável tagOnSuccessFulbuild: ${tagOnSuccessFulbuild}"
-        body.echo "valor da variável testRollbacks: ${testRollbacks}"
+        body.echo "valor da variável tagOnSuccessFulbuild: ${params.tagOnSuccessFulbuild}"
+        body.echo "valor da variável testRollbacks: ${params.testRollbacks}"
 
         for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
