@@ -35,16 +35,16 @@ class PipelineUtilities {
     script.newEnvVarsNodeProperty = null
     script.envVars = null
 
-    /*if ( script.envVarsNodePropertyList == null || script.envVarsNodePropertyList.size() == 0 ) {
-      script.newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
-      script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
-      script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
+    if (envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+      //script.newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
+      //script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
+      //script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
     } else {
-      script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
+      //script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
     }
 
-    script.envVars.put(key,value)
-    script.instance.save()*/
+    //script.envVars.put(key,value)
+    //script.instance.save()
   }
 
   static def removeReadOnly(script, workspace = null) {
