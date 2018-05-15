@@ -49,7 +49,7 @@ class Database implements Serializable {
         }        
     }
 
-    def executeScripts() {
+    def executeScripts(tagOnSuccessFulbuild = true, testRollbacks = true) {
         def arr = [:]
         
         for (db in jsonDb.Databases) {
@@ -64,8 +64,8 @@ class Database implements Serializable {
                             classpath: "${classpath}", 
                             credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                             driverClassname: "${driverClassname}", 
-                            tagonsuccessfulbuild: true, 
-                            testrollbacks: true, 
+                            tagOnSuccessfulBuild: tagOnSuccessFulbuild, 
+                            testRollbacks: testRollbacks, 
                             url: "${db.ConnectionString}")
                         
                         //save dblog
