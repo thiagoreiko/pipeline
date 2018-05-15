@@ -10,9 +10,12 @@ class Database implements Serializable {
     def classpath = "D:\\liquibase-bin\\ojdbc6.jar"
     def driverClassname = "oracle.jdbc.OracleDriver"
     def pipe
-    Database(body, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
+    Database(body, jsonDb, pipe, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.body = body
         this.jsonDb = jsonParse(jsonDb)
+        this.pipe = pipe
+
+        //body.echo "${pipe}"
 
       if(classpath != null) { this.classpath = classpath }
       
