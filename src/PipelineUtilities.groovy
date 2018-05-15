@@ -29,8 +29,8 @@ class PipelineUtilities {
   static def saveGlobalVars(script, key, value) {
     def instance = Jenkins.getInstance()
     //script.instance = Jenkins.getInstance()
-    /*script.globalNodeProperties = script.instance.getGlobalNodeProperties()
-    script.envVarsNodePropertyList = script.globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
+    script.globalNodeProperties = script.instance.getGlobalNodeProperties()
+    /*script.envVarsNodePropertyList = script.globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
 
     script.newEnvVarsNodeProperty = null
     script.envVars = null
