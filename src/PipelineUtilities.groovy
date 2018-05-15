@@ -29,10 +29,10 @@ class PipelineUtilities {
   static def saveGlobalVars(script, key, value) {
     def instance = Jenkins.getInstance()
     //script.instance = Jenkins.getInstance()
-    script.globalNodeProperties = instance.getGlobalNodeProperties()
-    /*script.envVarsNodePropertyList = script.globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
+    def globalNodeProperties = instance.getGlobalNodeProperties()
+    script.envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
 
-    script.newEnvVarsNodeProperty = null
+    /*script.newEnvVarsNodeProperty = null
     script.envVars = null
 
     if ( script.envVarsNodePropertyList == null || script.envVarsNodePropertyList.size() == 0 ) {
