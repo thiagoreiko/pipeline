@@ -9,10 +9,11 @@ class Database implements Serializable {
     def scriptsFolderPath
     def classpath = "D:\\liquibase-bin\\ojdbc6.jar"
     def driverClassname = "oracle.jdbc.OracleDriver"
-
+    def pipe
     Database(body, jsonDb, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.body = body
         this.jsonDb = jsonParse(jsonDb)
+        this.pipe = PipelineUtilities
 
       if(classpath != null) { this.classpath = classpath }
       
@@ -104,7 +105,7 @@ class Database implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     //PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${JOB_NAME}-${BUILD_NUMBER}")
-                    PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
+                    //PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
                 }
             }
         }
