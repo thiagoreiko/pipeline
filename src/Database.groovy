@@ -104,7 +104,7 @@ class Database implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {
                     //PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${JOB_NAME}-${BUILD_NUMBER}")
-                    saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${JOB_NAME}-${BUILD_NUMBER}")
+                    saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
                 }
             }
         }
