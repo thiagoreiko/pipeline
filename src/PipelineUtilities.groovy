@@ -40,7 +40,7 @@ class PipelineUtilities {
       script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
       script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
     } else {
-      script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
+      script.envVars = envVarsNodePropertyList.get(0).getEnvVars()
     }
 
     //script.envVars.put(key,value)
