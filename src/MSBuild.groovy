@@ -15,6 +15,6 @@ class MSBuild {
                 cfgTransform = ";CfgTransform=${cfgTransform}"
             }            
         }
-        script.bat "\"${tool 'MSBuild 15'}\\msbuild.exe\" \"${taskXMLFilePath}\" /t:FullPublish /nologo /v:diag /m /p:ZipName=${zipName};ZipWorkDir=\"${zipWorkDir}\"${cfgTransform}"
+        script.bat "\"${script.tool 'MSBuild 15'}\\msbuild.exe\" \"${taskXMLFilePath}\" /t:FullPublish /nologo /v:diag /m /p:ZipName=${zipName};ZipWorkDir=\"${zipWorkDir}\"${cfgTransform}"
     }
 }
