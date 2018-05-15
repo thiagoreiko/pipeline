@@ -37,7 +37,7 @@ class PipelineUtilities {
 
     if (envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
       script.newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
-      //script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
+      script.globalNodeProperties.add(script.newEnvVarsNodeProperty)
       //script.envVars = script.newEnvVarsNodeProperty.getEnvVars()
     } else {
       //script.envVars = script.envVarsNodePropertyList.get(0).getEnvVars()
