@@ -91,9 +91,5 @@ public class PipelineUtilities {
     return dbaApproval
     
   }
-
-  static void m1() {
-  println 'One'
-}
 }
 
