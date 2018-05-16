@@ -1,6 +1,6 @@
 package org.foo
 
 import groovy.transform.BaseScript
-@BaseScript Teste1 mainScript
+@BaseScript Teste1 teste1
 
-println "$meaningOfLife" //works as expected
+//println "$meaningOfLife" //works as expected
