@@ -112,7 +112,10 @@ class Database implements Serializable {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {                    
                    //pipe.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
-                   pipe.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${jobBaseName()}-${body.BUILD_NUMBER}")                   
+                   def varName = "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE"
+                   def varValue = "${jobBaseName()}-${body.BUILD_NUMBER}"
+                   body.echo "Salvando variavel ${varName} com valor ${varValue}"
+                   pipe.saveGlobalVars(body, varName, varValue)                   
                 }
             }
         }
