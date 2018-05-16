@@ -4,8 +4,6 @@ import jenkins.model.Jenkins
 import hudson.model.*
 
 public class PipelineUtilities {
-
-  PipelineUtilities() {}
   
   static def saveGlobalVars(script, key, value) {
     def instance = Jenkins.getInstance()
@@ -93,8 +91,9 @@ public class PipelineUtilities {
     return dbaApproval
     
   }
-}
 
-static void m1() {
+  static void m1() {
   println 'One'
 }
+}
+
