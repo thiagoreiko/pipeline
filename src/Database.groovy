@@ -1,7 +1,7 @@
 package org.foo
 import groovy.json.JsonSlurperClassic
 //import org.foo.PipelineUtilities.*
-import static org.foo.dasdsaas.*
+import static org.foo.PipelineUtilities.*
 
 class Database implements Serializable {
 
