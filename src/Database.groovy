@@ -120,7 +120,7 @@ class Database implements Serializable {
                 if(sc.Aplicar) {
                     fallbacks["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
                         body.echo "Restoring scripts "
-                        liquibaseRollback(
+                        body.liquibaseRollback(
                         	changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
                         	classpath: "${classpath}", 
                         	credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
