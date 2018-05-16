@@ -1,6 +1,6 @@
 package org.foo
 import groovy.json.JsonSlurperClassic
-//import org.foo.PipelineUtilities.*
+import org.foo.PipelineUtilities.*
 
 class Database implements Serializable {
 
@@ -16,7 +16,7 @@ class Database implements Serializable {
         this.jsonDb = jsonParse(jsonDb)
         //this.pipe =  org.foo.PipelineUtilities
 
-        PipelineUtilities.m1()
+    PipelineUtilities.m1()
 
       if(classpath != null) { this.classpath = classpath }
       
