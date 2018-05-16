@@ -1,6 +1,6 @@
 package org.foo
 
-import DbUtils
+import DbUtils.*
 
 def testando() {
     def dbUtils = new DbUtils()
