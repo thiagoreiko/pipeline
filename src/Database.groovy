@@ -11,10 +11,11 @@ class Database implements Serializable {
     def driverClassname = "oracle.jdbc.OracleDriver"
     def pipe
 
+    //TODO: review the parameter "pipe". It's not correct to stay here
     Database(body, jsonDb, pipe, scriptsFolderPath = null, classpath = null, driverClassname = null){
         this.body = body
         this.jsonDb = jsonParse(jsonDb)
-        //this.pipe =  org.foo.PipelineUtilities
+        this.pipe =  pipe
 
 
       if(classpath != null) { this.classpath = classpath }
@@ -106,8 +107,7 @@ class Database implements Serializable {
         for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {                    
-                   // pipe.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
-                   //PipelineUtilities.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
+                   pipe.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")                   
                 }
             }
         }
