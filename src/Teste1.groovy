@@ -1,7 +1,5 @@
 package org.foo
 
-class Teste1{
-    def save(something){
-        
-    }
+abstract class Teste1 extends Script {
+    def meaningOfLife = 42
 }

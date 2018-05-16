@@ -1,10 +1,6 @@
 package org.foo
 
-import DbUtils.*
+import groovy.transform.BaseScript
+@BaseScript Teste1 mainScript
 
-static def testando() {
-    // def dbUtils = new DbUtils()
-    // def something = 'foobar'
-    // dbUtils.save(something)
-    evaluate(new File("Teste1.groovy"))
-}
+println "$meaningOfLife" //works as expected
