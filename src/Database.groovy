@@ -133,7 +133,7 @@ class Database implements Serializable {
                         	classpath: "${classpath}", 
                         	credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
                         	driverClassname: "${driverClassname}", 
-                        	rollbackToTag: "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE",//"${JOB_NAME}-${BUILD_NUMBER}",
+                        	rollbackToTag: body.env."${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE",
                         	url: "${db.ConnectionString}")
                     }
                 }
