@@ -94,3 +94,7 @@ public class PipelineUtilities {
     
   }
 }
+
+static void m1() {
+  println 'One'
+}
