@@ -55,7 +55,7 @@ class Database implements Serializable {
 
     def executeScripts(params) {
         def arr = [:]
-        
+        if(params == null) { params = [:]}
         if(params.tagOnSuccessFulbuild == null){params.tagOnSuccessFulbuild = true}
         if(params.testRollbacks == null){params.testRollbacks = true}
         
