@@ -1,4 +1,7 @@
 package org.foo
-static def m1() {
-   //body.println 'One'
+
+class Teste1{
+    def save(something){
+        
+    }
 }
