@@ -31,6 +31,10 @@ class Database implements Serializable {
         new groovy.json.JsonSlurperClassic().parseText(json)
     }
     
+    def jobBaseName(jobName) {
+	    return jobName.split('/').last()
+    }
+
     def validateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
         
         for (db in jsonDb.Databases) {
@@ -107,11 +111,11 @@ class Database implements Serializable {
         for (db in jsonDb.Databases) {
             for (sc in db.Schemas) {
                 if(sc.Aplicar) {                    
-                   pipe.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
-                   /*def varName = "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE"
-                   def varValue = "${jobBaseName()}-${body.BUILD_NUMBER}"
+                   //pipe.saveGlobalVars(body, "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE", "${body.JOB_NAME}-${body.BUILD_NUMBER}")
+                   def varName = "${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE"
+                   def varValue = "${jobBaseName(body.JOB_NAME)}-${body.BUILD_NUMBER}"
                    body.echo "Salvando variavel ${varName} com valor ${varValue}"
-                   pipe.saveGlobalVars(body, "${varName}", "${varValue}")*/                   
+                   //pipe.saveGlobalVars(body, "${varName}", "${varValue}")*/                   
                 }
             }
         }
