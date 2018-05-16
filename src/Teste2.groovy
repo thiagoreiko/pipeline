@@ -1,7 +1,10 @@
 package org.foo
 
-GroovyClassLoader gcl = new GroovyClassLoader();
-File f = new File("Teste1.groovy");
-Class tempClass = gcl.parseClass(f);
-tempClass.configure();
+
+
+def sh = new GroovyShell()  
+File f = new File("Teste1.groovy");  
+def closure = sh.evaluate(f.text);
+
+
 
