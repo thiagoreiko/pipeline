@@ -1,4 +1,4 @@
 package org.foo
-static void m1() {
+def static m1() {
    println 'One'
 }

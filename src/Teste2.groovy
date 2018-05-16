@@ -1,3 +1,7 @@
 package org.foo
 
-evaluate(new File("Teste2.groovt"))
+GroovyClassLoader gcl = new GroovyClassLoader();
+File f = new File("Teste1.groovy");
+Class tempClass = gcl.parseClass(f);
+tempClass.configure();
+
