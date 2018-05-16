@@ -32,7 +32,7 @@ class Database implements Serializable {
     }
 
     def jobBaseName() {
-	    "${env.JOB_NAME}".split('/').last()
+	    "${body.JOB_NAME}".split('/').last()
     }
     
     def validateScripts(sqlCommands = "drop,truncate", validateRollbackScript = false, buildFailedWhenInvalid = false) {
