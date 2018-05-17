@@ -1,6 +1,5 @@
 package org.foo
 import groovy.json.JsonSlurperClassic
-//import org.foo.PipelineUtilities.*
 
 class Database implements Serializable {
 
@@ -123,28 +122,6 @@ class Database implements Serializable {
             }
         }
     }
-
-    /*def rollbackToLatestStableVersion(environment){
-        def fallbacks = [:]
-        for (db in jsonDb.Databases) {
-            for (sc in db.Schemas) {
-                if(sc.Aplicar) {
-                    fallbacks["DB_${db.Name}_SCHEMA_${sc.Schema}_${body.BUILD_NUMBER}"] = {
-                        body.echo "Restoring scripts "
-                        body.liquibaseRollback(
-                        	changeLogFile: "${scriptsFolderPath}\\${sc.ChangeLogPath}", 
-                        	classpath: "${classpath}", 
-                        	credentialsId: "${sc.Credenciais.replace("UUID-", "")}", 
-                        	driverClassname: "${driverClassname}", 
-                        	rollbackToTag: body.env."${db.Name}_SCHEMA_${sc.Schema}_${environment}_LAST_STABLE",
-                        	url: "${db.ConnectionString}")
-                    }
-                }
-            }
-        } 
-
-        return fallbacks
-    }*/
 
     def rollbackToLatestStableVersion(environment){
         def fallbacks = [:]
